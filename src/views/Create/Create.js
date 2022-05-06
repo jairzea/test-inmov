@@ -93,6 +93,7 @@ const Create = () => {
           <div className="flex w-full justify-between my-4">
             <ButtonComponent title="Guardar" />
             <ButtonComponent
+              type="button"
               title="Limpiar"
               danger={true}
               handle={clearClick}

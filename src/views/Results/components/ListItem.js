@@ -1,6 +1,3 @@
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import { FcFullTrash } from "react-icons/fc";
-
 import Mobster from "../../../assets/mobster.png";
 
 const ListItem = (props) => {
@@ -27,14 +24,6 @@ const ListItem = (props) => {
         <p>
           id: <b>{props.id}</b>
         </p>
-      </div>
-      <div className="w-1/6 flex flex-row items-start py-3 px-4">
-        {/* <button>
-          <AiFillEdit />
-        </button> */}
-        <button title="Borrar">
-          <FcFullTrash />
-        </button>
       </div>
     </div>
   );
