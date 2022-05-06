@@ -9,14 +9,12 @@ export const counterSlice = createSlice({
   initialState,
 
   reducers: {
-    saveTest: (state, action) => {
+    saveClassicCar: (state, action) => {
       state.value += action.payload;
     },
   },
 });
 
-export const { saveTest } = counterSlice.actions;
-
-export const selectCount = (state) => state.cars.value;
+export const { saveClassicCar } = counterSlice.actions;
 
 export default counterSlice.reducer;

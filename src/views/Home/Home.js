@@ -8,6 +8,10 @@ const Home = () => {
     navigate("/results/");
   };
 
+  const handleCreateClick = () => {
+    navigate("/create/");
+  };
+
   return (
     <div className="flex h-screen overflow-hidden">
       <div className="w-2/5">
@@ -25,6 +29,7 @@ const Home = () => {
           <button
             className="bg-blue text-white hover:bg-blue-hover font-lato w-full shadow-lg h-9 rounded"
             style={{ width: "48%" }}
+            onClick={handleCreateClick}
           >
             Añadir un clasico
           </button>
