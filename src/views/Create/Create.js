@@ -60,7 +60,7 @@ const Create = () => {
           />
         </div>
         <div className="p-2 w-full">
-          <ButtonComponent title="Volver" handle={goBack} />
+          <ButtonComponent title="Inicio" handle={goBack} />
         </div>
       </div>
       <div className="flex h-screen overflow-hidden">
