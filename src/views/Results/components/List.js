@@ -1,8 +1,8 @@
+import ListItem from "./ListItem";
+
 const List = (data) => {
-  console.log(data);
-  return data?.map((car) => {
-    <div key={car.model}></div>;
-  });
+  console.log(data?.data);
+  return data?.data?.map((car) => <ListItem key={car.id} {...car} />);
 };
 
 export default List;

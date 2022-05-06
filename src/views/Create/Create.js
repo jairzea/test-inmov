@@ -1,35 +1,68 @@
-import Mobster from "../../assets/mobster.png";
-import { useSelector, useDispatch } from "react-redux";
-import { saveClassicCar } from "../../redux/actions/actionsClassicsCars";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
-import { selectDataClassicCar } from "../../redux/selectors/selectorsClassicsCars";
+import classStringFatherOne, {
+  classStringInput,
+  classStringForm,
+  classStringH2,
+} from "./styles";
+import ButtonComponent from "../../common/Button";
+import { saveClassicCar } from "../../redux/actions/actionsClassicsCars";
+import { generateId } from "../../utils/generateId";
+
+import Mobster from "../../assets/mobster.png";
 
 const Create = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const inforClassicsCars = useSelector(selectDataClassicCar);
+  const { register, getValues, resetField } = useForm();
 
   const handleSave = (event) => {
     event.preventDefault();
-    const { target } = event;
-
     const payload = {
-      model: target.model.value,
-      yearProduction: target.yearProduction.value,
-      owner: target.owner.value,
-      mileage: target.mileage.value,
+      id: generateId(),
+      model: getValues("model"),
+      yearProduction: getValues("yearProduction"),
+      owner: getValues("owner"),
+      mileage: getValues("mileage"),
     };
 
-    dispatch(saveClassicCar(payload));
+    dispatch(saveClassicCar(JSON.stringify(payload) + ","));
+
+    toast.success("Registro exitoso!", {
+      position: "top-right",
+    });
+
+    clearClick();
   };
 
-  console.log("inforClassicsCars", inforClassicsCars);
+  const clearClick = () => {
+    resetField("model");
+    resetField("yearProduction");
+    resetField("owner");
+    resetField("mileage");
+  };
+
+  const handleResulteClick = () => navigate("/results/");
+  const goBack = () => navigate("/");
 
   return (
     <div>
-      <div className="w-3/5 flex justify-center items-center flex-col px-10">
-        ste - {inforClassicsCars}
+      <h2 className={classStringFatherOne}>Registra Tu Clasico</h2>
+      <div className="flex w-full justify-center mb-2">
+        <div className="p-2 w-full">
+          <ButtonComponent
+            title="Clasicos"
+            danger={true}
+            handle={handleResulteClick}
+          />
+        </div>
+        <div className="p-2 w-full">
+          <ButtonComponent title="Volver" handle={goBack} />
+        </div>
       </div>
-      <h2 className="text-3xl font-bold font-lato mt-5">Registra Tu Clasico</h2>
       <div className="flex h-screen overflow-hidden">
         <div className="w-3/5">
           <img
@@ -38,39 +71,34 @@ const Create = () => {
             className="w-full h-50 object-cover"
           />
         </div>
-        <form
-          onSubmit={handleSave}
-          className="w-2/5 flex justify-center items-center flex-col px-10"
-        >
-          <h2 className="text-lg font-bold font-lato">Modelo</h2>
-          <input
-            className="bg-special-gray font-lato w-full h-9 mb-3 p-1 border focus:outline-none focus:ring-2 focus:ring-blue-hover rounded"
-            name="model"
-          />
-          <h2 className="text-lg font-bold font-lato">Año de fabricación</h2>
+        <form onSubmit={handleSave} className={classStringForm}>
+          <h2 className={classStringH2}>Modelo</h2>
+          <input className={classStringInput} {...register("model")} required />
+          <h2 className={classStringH2}>Año de fabricación</h2>
           <input
             type="number"
-            className="bg-special-gray font-lato w-full h-9 mb-3 p-1 border focus:outline-none focus:ring-2 focus:ring-blue-hover rounded"
-            name="yearProduction"
+            className={classStringInput}
+            {...register("yearProduction")}
+            required
           />
-          <h2 className="text-lg font-bold font-lato">
-            Nombre del propietario
-          </h2>
-          <input
-            className="bg-special-gray font-lato w-full h-9 mb-3 p-1 border focus:outline-none focus:ring-2 focus:ring-blue-hover rounded"
-            name="owner"
-          />
-          <h2 className="text-lg font-bold font-lato">Kilometraje</h2>
+          <h2 className={classStringH2}>Nombre del propietario</h2>
+          <input className={classStringInput} {...register("owner")} required />
+          <h2 className={classStringH2}>Kilometraje</h2>
           <input
             type="number"
-            className="bg-special-gray font-lato w-full h-9 mb-3 p-1 border focus:outline-none focus:ring-2 focus:ring-blue-hover rounded"
-            name="mileage"
+            className={classStringInput}
+            {...register("mileage")}
+            required
           />
           <div className="flex w-full justify-between my-4">
-            <button className="bg-blue text-white hover:bg-blue-hover font-lato w-full shadow-lg h-9 rounded">
-              Guardar
-            </button>
+            <ButtonComponent title="Guardar" />
+            <ButtonComponent
+              title="Limpiar"
+              danger={true}
+              handle={clearClick}
+            />
           </div>
+          <Toaster />
         </form>
       </div>
     </div>

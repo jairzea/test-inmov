@@ -7,14 +7,19 @@ import Loading from "./components/Loading";
 const Results = () => {
   const inforClassicsCars = useSelector(selectDataClassicCar);
 
-  // console.log("inforClassicsCars", JSON.parse([]));
+  const newInfoClassicCars = inforClassicsCars.substring(
+    0,
+    inforClassicsCars.length - 1
+  );
+
+  const dataClasicsCars = JSON.parse(`[${newInfoClassicCars}]`);
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <div className="w-3/5 flex justify-center items-center flex-col px-10">
-        {inforClassicsCars ? <List data={[]} /> : <Loading />}
+    <div className="flex flex-row">
+      <div className="w-2/5 h-screen overflow-y-auto overflow-x-hidden px-10">
+        {inforClassicsCars ? <List data={dataClasicsCars} /> : <Loading />}
       </div>
-      <div className="w-2/5">
+      <div className="w-3/5">
         <img
           src={Kevassirm}
           alt="kevassirm"
